@@ -1,10 +1,18 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  helper_method :sort_column, :sort_direction
 
   # GET /users
   # GET /users.json
   def index
     @users = User.all.paginate(page: params[:page])
+
+
+
+    order_string = [sort_column, sort_direction].compact.join(' ')
+    @users = User.order(
+      order_string
+    ).paginate(page: params[:page])
   end
 
   # GET /users/1
@@ -70,5 +78,13 @@ class UsersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
     params.require(:user).permit(:first_name, :last_name, :address_line, :city, :state, :zip, :avatar)
+  end
+
+  def sort_direction
+    params[:direction]
+  end
+
+  def sort_column
+    params[:sort]
   end
 end
