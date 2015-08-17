@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :user do
-    first_name { Faker::Address.first_name }
-    last_name { Faker::Address.last_name }
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
     address_line { Faker::Address.street_address }
     city { Faker::Address.city }
     state { Faker::Address.state }
