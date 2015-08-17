@@ -5,13 +5,8 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all.paginate(page: params[:page])
-
-
-
-    order_string = [sort_column, sort_direction].compact.join(' ')
     @users = User.order(
-      order_string
+      sort_column + ' ' + sort_direction
     ).paginate(page: params[:page])
   end
 
@@ -81,10 +76,10 @@ class UsersController < ApplicationController
   end
 
   def sort_direction
-    params[:direction]
+    %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
   end
 
   def sort_column
-    params[:sort]
+    User.column_names.include?(params[:sort]) ? params[:sort] : "name"
   end
 end
