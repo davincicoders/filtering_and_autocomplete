@@ -1,3 +1,17 @@
-// Place all the styles related to the users controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'bootstrap';
+
+.filter {
+  padding-bottom: 25px;
+}
+
+th .asc {
+  @extend .glyphicon;
+  @extend .glyphicon-chevron-up;
+  @extend .pull-right;
+}
+
+th .desc {
+  @extend .glyphicon;
+  @extend .glyphicon-chevron-down;
+  @extend .pull-right;
+}
