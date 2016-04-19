@@ -11,31 +11,45 @@
 <div class="table-responsive">
   <table class="table table-striped table-bordered table-hover">
     <thead>
-    <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Address line</th>
-      <th>City</th>
-      <th>State</th>
-      <th>Zip</th>
-      <th>Avatar</th>
-      <th colspan='3'></th>
-    </tr>
+      <tr>
+        <th><%= sortable('first_name') %></th>
+        <th><%= sortable('last_name') %></th>
+        <th><%= sortable('address_line') %></th>
+        <th><%= sortable('city') %></th>
+        <th><%= sortable('state') %></th>
+        <th><%= sortable('zip') %></th>
+        <th>Avatar</th>
+        <th colspan='3'></th>
+      </tr>
+      <tr>
+        <th>
+          <%= auto_complete_for(:first_name) %>
+        </th>
+        <th>
+          <%= auto_complete_for(:last_name) %>
+        </th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th colspan='3'></th>
+      </tr>
     </thead>
 
     <tbody>
-    <%= content_tag_for(:tr, @users) do |user| %>
-      <td><%= user.first_name %></td>
-      <td><%= user.last_name %></td>
-      <td><%= user.address_line %></td>
-      <td><%= user.city %></td>
-      <td><%= user.state %></td>
-      <td><%= user.zip %></td>
-      <td><%= image_tag(user.avatar) %></td>
-      <td><%= link_to 'Show', user %></td>
-      <td><%= link_to 'Edit', edit_user_path(user) %></td>
-      <td><%= link_to 'Destroy', user, method: :delete, data: {confirm: 'Are you sure?'} %></td>
-    <% end %>
+      <%= content_tag_for(:tr, @users) do |user| %>
+        <td><%= user.first_name %></td>
+        <td><%= user.last_name %></td>
+        <td><%= user.address_line %></td>
+        <td><%= user.city %></td>
+        <td><%= user.state %></td>
+        <td><%= user.zip %></td>
+        <td><%= image_tag(user.avatar) %></td>
+        <td><%= link_to 'Show', user %></td>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
     </tbody>
   </table>
 </div>
