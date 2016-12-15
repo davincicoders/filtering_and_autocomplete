@@ -1,10 +1,19 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
+  autocomplete :user, :first_name
+
   # GET /users
   # GET /users.json
   def index
-    @users = User.all.paginate(page: params[:page])
+    if params[:first_name]
+      @users = User.where(
+        ['first_name like ?', params[:first_name] + '%']
+      ).paginate(page: params[:page])
+    end
+    @users = User.order(
+        sort_column + ' ' + sort_direction
+    ).paginate(page: params[:page])
   end
 
   # GET /users/1
@@ -70,5 +79,15 @@ class UsersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
     params.require(:user).permit(:first_name, :last_name, :address_line, :city, :state, :zip, :avatar)
+  end
+
+  def sort_direction
+    %w(asc desc).include?(params[:direction]) ?
+        params[:direction] : 'asc'
+  end
+
+  def sort_column
+    User.column_names.include?(params[:sort]) ?
+        params[:sort] : 'first_name'
   end
 end
